@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 VITE_PORT=5173
 DJANGO_PORT=8000

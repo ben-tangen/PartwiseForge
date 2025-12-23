@@ -2,7 +2,9 @@
 # Source this script to activate the Poetry-managed virtual environment.
 # Usage: source ./activate.sh
 
-set -euo pipefail
+# IMPORTANT: Do NOT set -e/-u/-o pipefail here; this script is sourced
+# into the current shell, and altering shell options can break tab-completion
+# or cause your shell to exit unexpectedly.
 
 # Ensure the script is sourced, not executed
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
@@ -22,8 +24,8 @@ fi
 VENV_PATH="$(poetry env info --path 2>/dev/null || true)"
 if [[ -z "$VENV_PATH" || ! -d "$VENV_PATH" ]]; then
   echo "Creating Poetry virtual environment and installing dependencies..."
-  poetry install --no-root
-  VENV_PATH="$(poetry env info --path)"
+  poetry install --no-root || { echo "Poetry install failed"; return 1; }
+  VENV_PATH="$(poetry env info --path 2>/dev/null)"
 fi
 
 # Activate the venv in current shell
