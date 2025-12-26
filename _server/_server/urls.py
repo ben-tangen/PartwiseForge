@@ -16,9 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
+from django.templatetags.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('registration/', include("registration.urls")),
     path("", include("core.urls")),
+    # Serve favicon at root without editing every template
+    path('favicon.svg', RedirectView.as_view(url=static('core/favicon.png'), permanent=True)),
+    path('favicon.ico', RedirectView.as_view(url=static('core/favicon.png'), permanent=True)),
 ]

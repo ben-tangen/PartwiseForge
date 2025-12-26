@@ -1,47 +1,67 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import favicon from '/favicon.png'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [prompt, setPrompt] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [messages, setMessages] = useState([])
 
-  async function logout() {
-    const res = await fetch("/registration/logout/", {
-      credentials: "same-origin", // include cookies!
-    });
-
-    if (res.ok) {
-      // navigate away from the single page app!
-      window.location = "/registration/sign_in/";
-    } else {
-      // handle logout failed!
+  async function askAI() {
+    setError("")
+    if (!prompt.trim()) return
+    
+    // Add user message to conversation history
+    const userMessage = { role: "user", content: prompt }
+    const updatedMessages = [...messages, userMessage]
+    
+    setLoading(true)
+    setPrompt("") // Clear input
+    
+    try {
+      const res = await fetch('/api/ai/chat/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ messages: updatedMessages })
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data?.error || 'Request failed')
+      } else {
+        // Add assistant reply to conversation history
+        const assistantMessage = { role: "assistant", content: data?.reply || '' }
+        setMessages([...updatedMessages, assistantMessage])
+        
+        // Log the full conversation to console
+        console.log('AI reply:', data?.reply || '')
+        console.log('Full conversation:', [...updatedMessages, assistantMessage])
+      }
+    } catch (e) {
+      setError('Network error')
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+      <div style={{ marginBottom: 12, fontWeight: 600 }}>Partwise Forge</div>
+
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+        <input
+          type="text"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="Ask AI something..."
+          style={{ flex: '1 1 320px', padding: 8 }}
+        />
+        <button onClick={askAI} disabled={loading || !prompt.trim()}>
+          {loading ? 'Thinking...' : 'Ask AI'}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <button onClick={logout}>Logout</button>
+      {error && <p style={{ color: 'crimson' }}>Error: {error}</p>}
+      {/* Reply is logged to console; nothing rendered here */}
     </>
   )
 }
