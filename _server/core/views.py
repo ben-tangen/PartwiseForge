@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.conf  import settings
+from django.conf import settings
 import json
 import os
 from django.contrib.auth.decorators import login_required
@@ -63,7 +63,7 @@ def ai_chat(req):
         return JsonResponse({"error": "Missing 'messages' list."}, status=400)
 
     try:
-        reply = chat_completion(messages, model=model or "llama-3.1-8b-instant")
+        reply = chat_completion(messages, model=model or settings.AI_LLM_MODEL)
         return JsonResponse({"reply": reply})
     except MissingApiKeyError:
         return JsonResponse({"error": "GROQ_API_KEY not set"}, status=500)

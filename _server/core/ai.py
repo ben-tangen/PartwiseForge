@@ -1,6 +1,7 @@
 import os
 from functools import lru_cache
 from groq import Groq
+from django.conf import settings
 
 
 class MissingApiKeyError(Exception):
@@ -15,7 +16,7 @@ def get_client() -> Groq:
     return Groq(api_key=key)
 
 
-def simple_prompt(prompt: str, model: str = "llama-3.1-8b-instant") -> str:
+def simple_prompt(prompt: str, model: str = settings.AI_LLM_MODEL) -> str:
     resp = get_client().chat.completions.create(
         messages=[{"role": "user", "content": prompt}],
         model=model,
@@ -23,7 +24,7 @@ def simple_prompt(prompt: str, model: str = "llama-3.1-8b-instant") -> str:
     return resp.choices[0].message.content
 
 
-def chat_completion(messages: list[dict], model: str = "llama-3.1-8b-instant")-> str:
+def chat_completion(messages: list[dict], model: str = settings.AI_LLM_MODEL)-> str:
     resp = get_client().chat.completions.create(
         messages=messages,
         model=model,

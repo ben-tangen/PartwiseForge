@@ -19,4 +19,12 @@
 
 </form>
 <a href="/registration/sign_up/">Create New Account</a>
+<script>
+  // Reload page when restored from back/forward cache so CSRF token is fresh
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
+</script>
 {% endblock %}

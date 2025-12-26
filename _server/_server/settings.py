@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -22,7 +23,8 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b3+-#mtd71hul#1(jc^^x#k%4zr)aief^c9i14ya77)9e)1af('
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -131,3 +133,9 @@ STATIC_URL = 'static/' if not DEBUG else "__UNUSED__/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "registration/sign_in/"
+
+# AI settings
+AI_LLM_MODEL = "llama-3.1-8b-instant"
+AI_TOKEN_LIMIT_PER_MONTH = 100000  # Example tokens per user (Change in production)
+AI_MAX_RESPONSE_TOKENS = 1024 # Example max tokens per response (Change in production)
+

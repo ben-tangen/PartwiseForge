@@ -72,6 +72,5 @@ fi
 
 echo "==> Setup complete"
 echo "Next steps:"
-echo "  - Start Vite:   (cd client && npm run dev)"
-echo "  - Start Django: poetry run python _server/manage.py runserver"
-echo "  - Visit:        http://localhost:8000"
+echo "  - Run the combined runner: ./run.sh"
+echo "  - Visit: http://localhost:8000"
