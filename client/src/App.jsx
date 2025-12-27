@@ -44,9 +44,32 @@ function App() {
     }
   }
 
+  async function handleLogout() {
+    setError("")
+    try {
+      const res = await fetch('/registration/logout/', {
+        method: 'GET',
+        credentials: 'same-origin'
+      })
+      if (res.ok) {
+        // Redirect to sign-in page after logout
+        window.location.href = '/registration/sign_in/'
+      } else {
+        const data = await res.json().catch(() => ({}))
+        setError(data?.error || 'Logout failed')
+      }
+    } catch (e) {
+      setError('Network error')
+    }
+  }
   return (
     <>
-      <div style={{ marginBottom: 12, fontWeight: 600 }}>Partwise Forge</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+        <div style={{ fontWeight: 600 }}>Partwise Forge</div>
+        <div style={{ marginLeft: 'auto' }}>
+          <button onClick={handleLogout} style={{ padding: '6px 10px' }}>Logout</button>
+        </div>
+      </div>
 
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
         <input
