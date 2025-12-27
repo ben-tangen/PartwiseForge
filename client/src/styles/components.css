@@ -1,0 +1,61 @@
+@tailwind components;
+
+@layer components {
+	.app-root {
+		@apply min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100
+					 dark:from-gray-900 dark:to-gray-800 p-8;
+	}
+
+	.container { @apply max-w-4xl mx-auto; }
+	.header { @apply mb-8 text-center; }
+
+	.title { @apply text-4xl font-bold text-gray-800 dark:text-white mb-2; }
+	.subtitle { @apply text-gray-600 dark:text-gray-400; }
+
+	/* Renamed to avoid DaisyUI .card collision */
+	.app-card {
+		@apply bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6;
+	}
+
+	.flex-row { @apply flex gap-3 items-center flex-wrap; }
+
+	.input {
+		@apply flex-1 min-w-[320px] px-4 py-3 rounded-lg border-2 border-gray-300
+					 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400
+					 focus:outline-none bg-white dark:bg-gray-700 text-gray-800 dark:text-white
+					 placeholder-gray-400;
+	}
+
+	/* Enhanced button utilities without applying DaisyUI components (avoids circular apply) */
+	.btn-enhanced {
+		@apply shadow-md transition-colors duration-200 disabled:cursor-not-allowed;
+	}
+
+	.error {
+		@apply mt-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400
+					 dark:border-red-800 text-red-700 dark:text-red-300 rounded-lg;
+	}
+
+	.message {
+		@apply p-4 rounded-lg text-gray-800 dark:text-gray-200 whitespace-pre-wrap;
+	}
+
+	.msg-user { @apply bg-blue-100 dark:bg-blue-900/30 ml-8; }
+	.msg-ai { @apply bg-gray-100 dark:bg-gray-700 mr-8; }
+
+	.role {
+		@apply font-semibold mb-1 text-sm text-gray-600 dark:text-gray-400;
+	}
+
+	/* Compatibility mappings for existing App.jsx classNames */
+	.app-header { @apply flex gap-3 items-center mb-3 flex-wrap; }
+	.app-title { @apply text-base font-semibold; }
+	.header-actions { @apply ml-auto; }
+	.logout-button { @apply px-3 py-1 rounded; }
+
+	.input-row { @apply flex gap-3 items-center flex-wrap; }
+	.ai-input { @apply flex-1 min-w-[320px] px-4 py-3 rounded-lg border-2 border-gray-300
+						 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400
+						 focus:outline-none bg-white dark:bg-gray-700 text-gray-800 dark:text-white
+						 placeholder-gray-400; }
+}
