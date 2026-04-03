@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = "registration/sign_in/"
 
 # AI settings
-AI_LLM_MODEL = "llama-3.1-8b-instant"
+AI_LLM_MODEL = "llama-3.3-70b-versatile"
 AI_TOKEN_LIMIT_PER_MONTH = 100000  # Example tokens per user (Change in production)
 AI_MAX_RESPONSE_TOKENS = 1024 # Example max tokens per response (Change in production)
 

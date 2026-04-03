@@ -19,6 +19,7 @@ Partwise Forge is designed for individuals who buy, sell, and assemble PCs or PC
 * Track parts and full systems in an inventory
 * Associate monetary values with parts, bundles, and full PCs
 * Support building PCs from available inventory
+* Support guided tutoring for PC part selection and assembly
 * Enforce compatibility constraints between parts
 * Provide analytics and insights into profitability
 * Offer AI-assisted pricing and listing generation for premium users
@@ -119,7 +120,14 @@ Partwise Forge is designed for individuals who buy, sell, and assemble PCs or PC
 * The system shall provide inventory turnover insights
 * The system shall support admin-level global analytics
 
-### 3.10 Payments & Subscriptions
+### 3.10 PC Tutor Experience
+
+* The system shall provide guided lessons on PC component selection
+* The system shall provide step-by-step assembly tutoring
+* The system shall present hints when the learner makes an incorrect choice or uses the wrong order
+* The system shall support question-and-answer checks for learner understanding
+
+### 3.11 Payments & Subscriptions
 
 * The system shall integrate with Stripe to support premium subscriptions and one-time payments.
 * The system shall create Checkout Sessions (Stripe-hosted) for secure payment collection and use webhook events to confirm payment and subscription state.
