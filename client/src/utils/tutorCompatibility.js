@@ -16,6 +16,18 @@ function includesAny(value, candidates) {
   })
 }
 
+function normalizeToArray(value) {
+  if (Array.isArray(value)) {
+    return value
+  }
+
+  if (value === null || value === undefined || value === '') {
+    return []
+  }
+
+  return [value]
+}
+
 function findStackEntry(buildStack, partKey) {
   return buildStack.find((entry) => entry.partKey === partKey)
 }
@@ -35,17 +47,35 @@ function compareSocket(option, expectedSocket, reasons) {
 }
 
 function compareRamType(option, expectedRamType, reasons) {
-  if (!option.ramType) {
+  const optionRamTypes = normalizeToArray(option.ramType)
+  const expectedRamTypes = normalizeToArray(expectedRamType)
+
+  if (optionRamTypes.length === 0) {
     reasons.push('RAM type information is missing.')
     return false
   }
 
-  if (option.ramType !== expectedRamType) {
-    reasons.push(`RAM type mismatch: this option is ${option.ramType}, but the build needs ${expectedRamType}.`)
-    return false
+  if (expectedRamTypes.length > 0) {
+    const hasCompatibleRamType = optionRamTypes.some((optionRamType) => expectedRamTypes.includes(optionRamType))
+
+    if (!hasCompatibleRamType) {
+      reasons.push(`RAM type mismatch: this option supports ${optionRamTypes.join(' / ')}, but the build needs ${expectedRamTypes.join(' / ')}.`)
+      return false
+    }
   }
 
   return true
+}
+
+function ramTypesOverlap(leftRamType, rightRamType) {
+  const leftRamTypes = normalizeToArray(leftRamType)
+  const rightRamTypes = normalizeToArray(rightRamType)
+
+  if (leftRamTypes.length === 0 || rightRamTypes.length === 0) {
+    return false
+  }
+
+  return leftRamTypes.some((leftType) => rightRamTypes.includes(leftType))
 }
 
 function compareFormFactor(option, expectedFormFactor, reasons) {
@@ -111,6 +141,10 @@ export function evaluateTutorSelection(partKey, optionKey, buildStack = []) {
     compareSocket(option.attributes, tutorBuildBlueprint.mobo.socket, reasons)
     compareRamType(option.attributes, tutorBuildBlueprint.mobo.ramType, reasons)
     compareFormFactor(option.attributes, tutorBuildBlueprint.mobo.formFactor, reasons)
+
+    if (cpu?.attributes?.ramType && !ramTypesOverlap(cpu.attributes.ramType, option.attributes.ramType)) {
+      reasons.push(`RAM type mismatch with the already selected CPU (${normalizeToArray(cpu.attributes.ramType).join(' / ')}).`)
+    }
   }
 
   if (partKey === 'cpu') {
@@ -121,6 +155,10 @@ export function evaluateTutorSelection(partKey, optionKey, buildStack = []) {
     }
 
     compareRamType(option.attributes, tutorBuildBlueprint.cpu.ramType, reasons)
+
+    if (motherboard?.attributes?.ramType && !ramTypesOverlap(option.attributes.ramType, motherboard.attributes.ramType)) {
+      reasons.push(`RAM type mismatch with the already selected motherboard (${motherboard.attributes.ramType}).`)
+    }
   }
 
   if (partKey === 'ram') {
@@ -213,16 +251,6 @@ export function evaluateTutorSelection(partKey, optionKey, buildStack = []) {
     compareFormFactor(option.attributes, tutorBuildBlueprint.psu.formFactor, reasons)
   }
 
-  if (partKey === 'wifi') {
-    if (!includesAny(option.attributes.interface ?? '', tutorBuildBlueprint.wifi.supportedInterfaces)) {
-      reasons.push('The Wi-Fi adapter interface is not supported by this build.')
-    }
-
-    if (motherboard?.attributes?.hasWiFi && option.key !== 'onboard-wifi-card') {
-      reasons.push('This motherboard already has Wi-Fi, so a separate add-in card is unnecessary.')
-    }
-  }
-
   if (partKey === 'mobo' && cpu?.attributes?.socket && option.attributes.socket !== cpu.attributes.socket) {
     reasons.push(`Socket mismatch with the already selected CPU (${cpu.attributes.socket}).`)
   }
@@ -253,10 +281,6 @@ export function evaluateTutorSelection(partKey, optionKey, buildStack = []) {
     if (option.attributes.wattage < gpu.attributes.powerWattage + 300) {
       reasons.push('The PSU is too small for the current GPU headroom target.')
     }
-  }
-
-  if (partKey === 'wifi' && motherboard?.attributes?.hasWiFi && option.key !== 'onboard-wifi-card') {
-    reasons.push('A Wi-Fi motherboard means the separate card is optional, not required.')
   }
 
   const compatible = reasons.length === 0

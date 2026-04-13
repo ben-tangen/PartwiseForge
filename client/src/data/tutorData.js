@@ -10,17 +10,6 @@ export const tutorPartOrder = [
 ]
 
 export const tutorParts = {
-  mobo: {
-    key: 'mobo',
-    label: 'Motherboard',
-    shortLabel: 'mobo',
-    whatItIs: 'The motherboard is the main circuit board of the PC.',
-    whatItDoes: 'It connects the CPU, RAM, storage, GPU, power, and accessories so they can work together.',
-    compatibility: 'Match the CPU socket, RAM type, and case form factor before buying a board.',
-    lessonTitle: 'Motherboard basics',
-    questionPrompt: 'What does the motherboard do for the PC?',
-    questionHint: 'It is the main board that everything plugs into.',
-  },
   cpu: {
     key: 'cpu',
     label: 'CPU',
@@ -31,6 +20,12 @@ export const tutorParts = {
     lessonTitle: 'CPU basics',
     questionPrompt: 'What does the CPU do for the PC?',
     questionHint: 'It is often called the brain of the computer.',
+    buyingTips: [
+      'Intel K chips are unlocked for overclocking; non-K chips are usually cheaper and easier to cool.',
+      'AMD X chips are higher-clock models; X3D chips add extra cache and are often stronger for gaming.',
+      'Core count matters for multitasking and creator work, while gaming often benefits more from fast single-core performance.',
+      'Check platform lifespan and upgrade path so your motherboard can support future CPU options.',
+    ],
   },
   cooler: {
     key: 'cooler',
@@ -42,6 +37,12 @@ export const tutorParts = {
     lessonTitle: 'CPU cooler basics',
     questionPrompt: 'What does the CPU cooler do for the PC?',
     questionHint: 'It keeps temperatures under control.',
+    buyingTips: [
+      'Air coolers are usually quieter and simpler to maintain, while AIO liquid coolers can offer better peak thermals in some builds.',
+      'Always verify socket mounting support in the cooler box, especially across older and newer CPU generations.',
+      'Check case clearance for tower height or radiator size before buying.',
+      'For sustained gaming or rendering, prioritize coolers with strong thermal headroom instead of bare-minimum models.',
+    ],
   },
   mobo: {
     key: 'mobo',
@@ -53,6 +54,12 @@ export const tutorParts = {
     lessonTitle: 'Motherboard basics',
     questionPrompt: 'What does the motherboard do for the PC?',
     questionHint: 'It is the main board that everything plugs into.',
+    buyingTips: [
+      'Start with socket and chipset, then confirm RAM generation support (DDR4 vs DDR5) and desired memory speeds.',
+      'Check the VRM quality if you plan on higher-power CPUs; weak VRMs can limit performance and stability.',
+      'Verify M.2 slot count, PCIe lane layout, rear I/O, and internal headers so the board matches your full build plan.',
+      'Choose form factor based on expansion needs: ATX for flexibility, mATX for balance, ITX for compact builds.',
+    ],
   },
   ram: {
     key: 'ram',
@@ -64,6 +71,12 @@ export const tutorParts = {
     lessonTitle: 'Memory basics',
     questionPrompt: 'What does memory do for the PC?',
     questionHint: 'It is the short-term memory used while the PC is running.',
+    buyingTips: [
+      'Capacity first, speed second: 32GB is a strong target for modern gaming and multitasking.',
+      'Use matched kits (2x or 4x) to ensure stable dual-channel operation and easier tuning.',
+      'Lower latency and higher frequency both help, but real gains depend on CPU and game/workload behavior.',
+      'Enable EXPO/XMP after installation to run advertised memory speeds.',
+    ],
   },
   storage: {
     key: 'storage',
@@ -75,6 +88,12 @@ export const tutorParts = {
     lessonTitle: 'Storage basics',
     questionPrompt: 'What does storage do for the PC?',
     questionHint: 'It holds data long-term, even when the PC is off.',
+    buyingTips: [
+      'Use NVMe SSDs for the OS and frequently played games; SATA SSDs remain good for budget expansion.',
+      'Check sustained write performance and endurance ratings if you move large files often.',
+      'Confirm your motherboard M.2 slot generation to avoid paying for speeds your platform cannot use.',
+      'A common strategy is a fast primary SSD plus larger secondary storage for media and archives.',
+    ],
   },
   gpu: {
     key: 'gpu',
@@ -86,6 +105,12 @@ export const tutorParts = {
     lessonTitle: 'Video card basics',
     questionPrompt: 'What does the video card do for the PC?',
     questionHint: 'It is the part that handles graphics and visuals.',
+    buyingTips: [
+      'Pick GPU based on target resolution and frame rate first, then compare cards in that performance class.',
+      'VRAM capacity matters more as texture quality and resolution increase.',
+      'Check total board power, connector type, and cooler size before buying.',
+      'For creator workflows, verify encoder support and app-specific acceleration, not just game benchmarks.',
+    ],
   },
   case: {
     key: 'case',
@@ -97,6 +122,12 @@ export const tutorParts = {
     lessonTitle: 'Case basics',
     questionPrompt: 'What does the case do for the PC?',
     questionHint: 'It is the shell that everything is mounted inside of.',
+    buyingTips: [
+      'Prioritize airflow layout and fan support over pure aesthetics for easier thermal management.',
+      'Check clearance specs for GPU length, cooler height, and radiator compatibility before committing.',
+      'Front I/O and cable-routing space can strongly affect daily usability and build quality.',
+      'Compact cases save space but often require tighter part choices and more planning.',
+    ],
   },
   psu: {
     key: 'psu',
@@ -108,17 +139,12 @@ export const tutorParts = {
     lessonTitle: 'Power supply basics',
     questionPrompt: 'What does the power supply do for the PC?',
     questionHint: 'It is the part that feeds power to the entire system.',
-  },
-  wifi: {
-    key: 'wifi',
-    label: 'Wi-Fi',
-    shortLabel: 'wifi',
-    whatItIs: 'Wi-Fi hardware gives the PC wireless networking access.',
-    whatItDoes: 'It lets the system connect to the internet without an ethernet cable.',
-    compatibility: 'A Wi-Fi card needs a supported slot or interface, and onboard Wi-Fi changes whether you need a separate card at all.',
-    lessonTitle: 'Wi-Fi basics',
-    questionPrompt: 'What does Wi-Fi hardware do for the PC?',
-    questionHint: 'It adds wireless internet access.',
+    buyingTips: [
+      'Leave headroom above estimated load so transient spikes do not cause instability under gaming or rendering peaks.',
+      'Look for 80 Plus Gold or better, strong OEM reviews, and modern protection features.',
+      'Fully modular units make cable management easier and improve airflow in tighter cases.',
+      'Verify connector support for your exact GPU and motherboard power requirements.',
+    ],
   },
 }
 
@@ -181,12 +207,12 @@ export const tutorSelectionOptions = {
     {
       key: 'i7-14700k',
       label: 'Intel Core i7-14700K',
-      summary: 'LGA 1700 and a bracket that matches the socket.',
+      summary: 'LGA 1700 CPU that can pair with DDR4 or DDR5 boards.',
       stackLabel: 'Intel Core i7-14700K (LGA 1700)',
       attributes: {
         socket: 'LGA1700',
         bracket: 'LGA1700',
-        ramType: 'DDR5',
+        ramType: ['DDR4', 'DDR5'],
         generation: '14th Gen',
       },
     },
@@ -205,12 +231,12 @@ export const tutorSelectionOptions = {
     {
       key: 'i5-13600k',
       label: 'Intel Core i5-13600K',
-      summary: 'LGA 1700 and a matching socket bracket.',
+      summary: 'LGA 1700 CPU that can pair with DDR4 or DDR5 boards.',
       stackLabel: 'Intel Core i5-13600K (LGA 1700)',
       attributes: {
         socket: 'LGA1700',
         bracket: 'LGA1700',
-        ramType: 'DDR5',
+        ramType: ['DDR4', 'DDR5'],
         generation: '13th Gen',
       },
     },
@@ -499,51 +525,13 @@ export const tutorSelectionOptions = {
       },
     },
   ],
-  wifi: [
-    {
-      key: 'intel-ax210-m2',
-      label: 'Intel AX210 M.2 Wi-Fi Card',
-      summary: 'Uses an M.2 E-key slot.',
-      stackLabel: 'Intel AX210 M.2 Wi-Fi Card',
-      attributes: {
-        interface: 'M.2',
-      },
-    },
-    {
-      key: 'tp-link-pcie-x1',
-      label: 'TP-Link Archer TX3000E',
-      summary: 'PCIe x1 Wi-Fi card.',
-      stackLabel: 'TP-Link Archer TX3000E',
-      attributes: {
-        interface: 'PCIe x1',
-      },
-    },
-    {
-      key: 'usb-wifi-6',
-      label: 'USB Wi-Fi 6 Adapter',
-      summary: 'Simple USB wireless adapter.',
-      stackLabel: 'USB Wi-Fi 6 Adapter',
-      attributes: {
-        interface: 'USB',
-      },
-    },
-    {
-      key: 'onboard-wifi-card',
-      label: 'Onboard Wi-Fi Module',
-      summary: 'Represents a motherboard with built-in Wi-Fi.',
-      stackLabel: 'Onboard Wi-Fi Module',
-      attributes: {
-        interface: 'Onboard',
-      },
-    },
-  ],
 }
 
 export const tutorBuildBlueprint = {
   cpu: {
     socket: 'LGA1700',
     bracket: 'LGA1700',
-    ramType: 'DDR5',
+    ramType: ['DDR4', 'DDR5'],
   },
   cooler: {
     socket: 'LGA1700',
@@ -582,9 +570,6 @@ export const tutorBuildBlueprint = {
     wattage: 750,
     formFactor: 'ATX',
   },
-  wifi: {
-    supportedInterfaces: ['M.2', 'PCIe x1', 'USB'],
-  },
 }
 
 export const tutorOverviewCards = [
@@ -621,10 +606,49 @@ export const tutorGradingFlow = [
   },
 ]
 
+export const tutorOptionImages = {
+  'asus-b760-plus-ddr5': '/images/ausus prim b760.jpeg',
+  'msi-b550-a-pro': '/images/b550 a pro.jpeg',
+  'gigabyte-b650m-wifi': '/images/gigabyte b650m wifi.jpeg',
+  'msi-b760m-ddr4': '/images/msi prom p ddr4.jpeg',
+  'i7-14700k': '/images/i7 14700k.jpeg',
+  'ryzen-5-5600x': '/images/Ryzen 5 5500.png',
+  'i5-13600k': '/images/i7 12700k.avif',
+  'ryzen-7-7700x': '/images/ryzen 5 7600.jpeg',
+  'corsair-32-ddr5': '/images/vengeance corsair ddd5.jpeg',
+  'gskill-32-ddr4': '/images/ripjaws.jpeg',
+  'teamgroup-16-ddr5': '/images/teamgroup ddr5.jpeg',
+  'kingston-32-ddr4': '/images/kingston fury dd4.jpeg',
+  'samsung-990-pro': '/images/samsung 990 pro1tb.jpeg',
+  'crucial-bx500': '/images/crucial bx500 1tb.jpeg',
+  'seagate-barra-2tb': '/images/seagate barracude 2tb.jpeg',
+  'wd-black-sn850x': '/images/sn850x.jpeg',
+  'rtx-4070-super': '/images/rtx 4070 super.jpeg',
+  'rx-6600': '/images/rx 6600.jpeg',
+  'rtx-4090': '/images/rtx 4080.jpeg',
+  'rx-7600': '/images/rx 7600.jpeg',
+  'peerless-assassin-120': '/images/thermalright peerless assassin.jpeg',
+  'wraith-stealth': '/images/amd wraith stealth.jpeg',
+  'h150i-elite': '/images/corsair icue h150i elite.jpeg',
+  'nh-d15': '/images/noctua nh d15.jpeg',
+  'fractal-pop-air': '/images/fractal design pop air.jpeg',
+  'corsair-3000d': '/images/corsair 3000d airlfow.jpeg',
+  'nzxt-h5-flow': '/images/nzxt h5 flow.jpeg',
+  'mini-itx-cozy': '/images/mini itx.jpeg',
+  'corsair-rm750e': '/images/rm750e.jpeg',
+  'seasonic-focus-650': '/images/seasonic focus gx 650.jpeg',
+  'sfx-450': '/images/cooler master 450w.jpeg',
+  'thermaltake-850': '/images/toughpower 850w.jpeg',
+}
+
 export function getTutorPart(partKey) {
   return tutorParts[partKey]
 }
 
 export function getTutorOptions(partKey) {
   return tutorSelectionOptions[partKey] ?? []
+}
+
+export function getTutorOptionImage(optionKey) {
+  return tutorOptionImages[optionKey] || ''
 }
